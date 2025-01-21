@@ -1,3 +1,4 @@
+//creamos la clase pregunta
 class Pregunta {
     constructor(pregunta, opciones, respCorrecta) {
       this.pregunta = pregunta;
@@ -5,17 +6,20 @@ class Pregunta {
       this.respCorrecta = respCorrecta;
     }
   
+    //validamos la respuesta del usuario aparte de validar la misma independiente si esta escrita en minusculas o sin tilde
     esRespCorrecta(respUsuario) {
       const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       return normalize(respUsuario) === normalize(this.respCorrecta);
     }
   }
   
+  //creamos la clase cuestionario
   class Cuestionario {
     constructor(preguntas) {
       this.preguntas = preguntas;
     }
   
+    //creamos el metodo hacerPreguntas para recorrer las preguntas y validar las respuestas
     hacerPreguntas() {
       this.preguntas.forEach((pregunta) => {
         console.log(pregunta.pregunta);
@@ -29,6 +33,7 @@ class Pregunta {
     }
   }
   
+  //creamos las preguntas
   const preguntas = [
     new Pregunta("¿En que continente se encuentra Chile?", ["Europa", "Asia", "Sudamerica"], "Sudamerica"),
     new Pregunta("¿Cuál es el planeta mas cercano al sol?", ["Mercurio", "Venus", "Tierra"], "Mercurio"),
@@ -40,6 +45,7 @@ class Pregunta {
     new Pregunta("¿Cual es el animal terrestre mas grande del mundo?", ["Jirafa", "Elefante", "Toro"], "Elefante"),
   ];
   
+  //creamos el objeto cuestionario y llamamos al metodo hacerPreguntas para iniciar el juego
   const cuestionario = new Cuestionario(preguntas);
   cuestionario.hacerPreguntas();
   
