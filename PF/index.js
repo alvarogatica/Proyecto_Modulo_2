@@ -21,7 +21,7 @@ const preguntas = [
       respuestaCorrecta: "Pisa"
     },
     {
-      pregunta: "¿A cuantos grados celcius hierbe el agua?",
+      pregunta: "¿A cuantos grados celsius hierve el agua?",
       opciones: ["100", "95", "400"],
       respuestaCorrecta: "100"
     },
