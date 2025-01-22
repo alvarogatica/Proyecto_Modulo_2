@@ -111,6 +111,26 @@ function esRespCorrecta(pregunta, respuesta) {
 * Después de obtener los datos, se crea un objeto llamado ```nuevaPregunta``` que tiene ```pregunta, opciones, respuestaCorrecta```
 * El objeto ```nuevaPregunta``` se agrega al arreglo ```preguntas``` usando ```push()```. Esto permite que la nueva pregunta sea parte del cuestionario y se pueda usar en el juego.
 * Finalmente, se muestra un mensaje en la consola indicando que la nueva pregunta fue añadida con éxito.
+```javascript
+function agregarPregunta() {
+  const preguntaTexto = prompt("Introduce la pregunta:");
+  const opcion1 = prompt("Introduce la opción 1:");
+  const opcion2 = prompt("Introduce la opción 2:");
+  const opcion3 = prompt("Introduce la opción 3:");
+  const respuestaCorrecta = prompt("Introduce la respuesta correcta:");
+
+  // Crear una nueva pregunta
+  const nuevaPregunta = {
+    pregunta: preguntaTexto,
+    opciones: [opcion1, opcion2, opcion3],
+    respuestaCorrecta: respuestaCorrecta
+  };
+
+  // Agregarla al arreglo de preguntas
+  preguntas.push(nuevaPregunta);
+  console.log("¡Pregunta añadida con éxito!");
+}
+```
 
 ### 7. Mediante un ```prompt``` se le pregunta al usuario si desea o no agregar una pregunta al questionario. Si la respuesta es "Si" procede a pedir que se ingrese la pregunta, luego que ingrese las 3 opciones y al final que agregue la respuesta correcta. Si la respuesta es "no", simplemente avanza con el cuestionario ya creado.
 ```javascript
