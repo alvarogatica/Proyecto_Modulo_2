@@ -55,9 +55,16 @@ const preguntas = [
     return normalizarRespuesta(respuesta) === normalizarRespuesta(pregunta.respuestaCorrecta);
   }
   
-  // Paso 3: Definir la función que recibe la respuesta del usuario por medio de un prompt
+  // Paso 3: Definir la función que recibe la respuesta del usuario por medio de un prompt y genera un bucle para no avanzar mientras no reciba respuesta (o este vacio)
   function recibirRespuestaUsuario(pregunta) {
-    return prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+    let respuesta = "";
+    do {
+      respuesta = prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+      if (!respuesta) {
+        console.log("Por favor, ingresa una respuesta válida.");
+      }
+    } while (!respuesta); // Se repite hasta que la respuesta no esté vacía
+    return respuesta;
   }
   
   // Paso 4: Crear la función preguntar
@@ -70,8 +77,34 @@ const preguntas = [
       console.log("Incorrecto. La respuesta correcta es " + pregunta.respuestaCorrecta);
     }
   }
+  // Paso 5: Crear un método para agregar nuevas preguntas
+function agregarPregunta() {
+  const preguntaTexto = prompt("Introduce la pregunta:");
+  const opcion1 = prompt("Introduce la opción 1:");
+  const opcion2 = prompt("Introduce la opción 2:");
+  const opcion3 = prompt("Introduce la opción 3:");
+  const respuestaCorrecta = prompt("Introduce la respuesta correcta:");
+
+  // Crear una nueva pregunta
+  const nuevaPregunta = {
+    pregunta: preguntaTexto,
+    opciones: [opcion1, opcion2, opcion3],
+    respuestaCorrecta: respuestaCorrecta
+  };
+
+  // Agregarla al arreglo de preguntas
+  preguntas.push(nuevaPregunta);
+  console.log("¡Pregunta añadida con éxito!");
+}
+
+// Paso 6: Preguntar si el usuario quiere agregar una nueva pregunta
+const deseaAgregarPregunta = prompt("¿Quieres agregar una nueva pregunta al cuestionario? (si/no)");
+
+if (deseaAgregarPregunta.toLowerCase() === "si") {
+  agregarPregunta();
+}
   
-  // Paso 5: Utilizar la función preguntar para cada pregunta
+  // Paso 7: Utilizar la función preguntar para cada pregunta
   preguntas.forEach((pregunta) => {
     preguntar(pregunta);
   });
