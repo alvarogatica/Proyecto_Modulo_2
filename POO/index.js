@@ -23,7 +23,16 @@ class Pregunta {
     hacerPreguntas() {
       this.preguntas.forEach((pregunta) => {
         console.log(pregunta.pregunta);
-        const respCorrecta = prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+        let respCorrecta;
+  
+        // Pedir respuesta hasta que el usuario ingrese algo no vacío
+        do {
+          respCorrecta = prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+          if (!respCorrecta) {
+            console.log("Por favor, ingresa una respuesta.");
+          }
+        } while (!respCorrecta); // Si la respuesta está vacía, se repite el ciclo
+  
         if (pregunta.esRespCorrecta(respCorrecta)) {
           console.log("¡Correcto!");
         } else {
@@ -31,9 +40,25 @@ class Pregunta {
         }
       });
     }
+    // Método para permitir al usuario agregar una nueva pregunta al cuestionario
+  agregarPregunta() {
+    const preguntaTexto = prompt("Introduce la pregunta:");
+    const opcion1 = prompt("Introduce la opción 1:");
+    const opcion2 = prompt("Introduce la opción 2:");
+    const opcion3 = prompt("Introduce la opción 3:");
+    const respuestaCorrecta = prompt("Introduce la respuesta correcta:");
+
+    // Crear una nueva instancia de la clase Pregunta
+    const nuevaPregunta = new Pregunta(preguntaTexto, [opcion1, opcion2, opcion3], respuestaCorrecta);
+
+    // Agregar la nueva pregunta al arreglo de preguntas
+    this.preguntas.push(nuevaPregunta);
+
+    console.log("¡Pregunta añadida con éxito!");
   }
+}
   
-  //creamos las preguntas
+//creamos las preguntas
   const preguntas = [
     new Pregunta("¿En que continente se encuentra Chile?", ["Europa", "Asia", "Sudamerica"], "Sudamerica"),
     new Pregunta("¿Cuál es el planeta mas cercano al sol?", ["Mercurio", "Venus", "Tierra"], "Mercurio"),
@@ -45,8 +70,16 @@ class Pregunta {
     new Pregunta("¿Cual es el animal terrestre mas grande del mundo?", ["Jirafa", "Elefante", "Toro"], "Elefante"),
   ];
   
-  //creamos el objeto cuestionario y llamamos al metodo hacerPreguntas para iniciar el juego
+//creamos el objeto cuestionario y llamamos al metodo hacerPreguntas para iniciar el juego
   const cuestionario = new Cuestionario(preguntas);
+
+// Permitir al usuario agregar una pregunta si lo desea
+const deseaAgregarPregunta = prompt("¿Quieres agregar una nueva pregunta al cuestionario? (si/no)");
+
+if (deseaAgregarPregunta.toLowerCase() === "si") {
+  cuestionario.agregarPregunta();
+}
+//iniciamos el juego
   cuestionario.hacerPreguntas();
   
     
