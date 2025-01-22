@@ -80,10 +80,17 @@ function esRespCorrecta(pregunta, respuesta) {
   }
 ```
 
-### 4. La función ```recibirRespuestaUsuario``` se utiliza para pedirle al usuario que ingrese una respuesta a una pregunta interactiva, utilizando el cuadro de diálogo ```prompt```.
+### 4. Este código define una función llamada ```recibirRespuestaUsuario``` que solicita la respuesta del usuario para una pregunta y valida que no esté vacía mediante un bucle ```do...while```.
 ```javascript
   function recibirRespuestaUsuario(pregunta) {
-    return prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+    let respuesta = "";
+    do {
+      respuesta = prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+      if (!respuesta) {
+        console.log("Por favor, ingresa una respuesta válida.");
+      }
+    } while (!respuesta); // Se repite hasta que la respuesta no esté vacía
+    return respuesta;
   }
 ```
 
@@ -99,8 +106,22 @@ function esRespCorrecta(pregunta, respuesta) {
     }
   }
 ```
+### 6. La función ```agregarPregunta()``` permite al usuario agregar una nueva pregunta al cuestionario
+* Utiliza varios ```prompt()``` para pedirle al usuario que ingrese los detalles de la nueva pregunta: el texto de la pregunta, las tres opciones posibles y la respuesta correcta.
+* Después de obtener los datos, se crea un objeto llamado ```nuevaPregunta``` que tiene ```pregunta, opciones, respuestaCorrecta```
+* El objeto ```nuevaPregunta``` se agrega al arreglo ```preguntas``` usando ```push()```. Esto permite que la nueva pregunta sea parte del cuestionario y se pueda usar en el juego.
+* Finalmente, se muestra un mensaje en la consola indicando que la nueva pregunta fue añadida con éxito.
 
-### 6. Este código utiliza el método ```forEach``` para recorrer todas las preguntas del arreglo ```preguntas``` y realizar la acción de hacer la pregunta al usuario.
+### 7. Mediante un ```prompt``` se le pregunta al usuario si desea o no agregar una pregunta al questionario. Si la respuesta es "Si" procede a pedir que se ingrese la pregunta, luego que ingrese las 3 opciones y al final que agregue la respuesta correcta. Si la respuesta es "no", simplemente avanza con el cuestionario ya creado.
+```javascript
+const deseaAgregarPregunta = prompt("¿Quieres agregar una nueva pregunta al cuestionario? (si/no)");
+
+if (deseaAgregarPregunta.toLowerCase() === "si") {
+  agregarPregunta();
+}
+```
+
+### 8. Este código utiliza el método ```forEach``` para recorrer todas las preguntas del arreglo ```preguntas``` y realizar la acción de hacer la pregunta al usuario.
 ```javascript
  preguntas.forEach((pregunta) => {
     preguntar(pregunta);
@@ -132,7 +153,7 @@ const preguntas = [
       respuestaCorrecta: "Pisa"
     },
     {
-      pregunta: "¿A cuantos grados celcius hierbe el agua?",
+      pregunta: "¿A cuantos grados celsius hierve el agua?",
       opciones: ["100", "95", "400"],
       respuestaCorrecta: "100"
     },
@@ -166,9 +187,16 @@ const preguntas = [
     return normalizarRespuesta(respuesta) === normalizarRespuesta(pregunta.respuestaCorrecta);
   }
   
-  // Paso 3: Definir la función que recibe la respuesta del usuario por medio de un prompt
+  // Paso 3: Definir la función que recibe la respuesta del usuario por medio de un prompt y genera un bucle para no avanzar mientras no reciba respuesta (o este vacio)
   function recibirRespuestaUsuario(pregunta) {
-    return prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+    let respuesta = "";
+    do {
+      respuesta = prompt(pregunta.pregunta + "\n" + pregunta.opciones.join(", "));
+      if (!respuesta) {
+        console.log("Por favor, ingresa una respuesta válida.");
+      }
+    } while (!respuesta); // Se repite hasta que la respuesta no esté vacía
+    return respuesta;
   }
   
   // Paso 4: Crear la función preguntar
@@ -181,8 +209,34 @@ const preguntas = [
       console.log("Incorrecto. La respuesta correcta es " + pregunta.respuestaCorrecta);
     }
   }
+  // Paso 5: Crear un método para agregar nuevas preguntas
+function agregarPregunta() {
+  const preguntaTexto = prompt("Introduce la pregunta:");
+  const opcion1 = prompt("Introduce la opción 1:");
+  const opcion2 = prompt("Introduce la opción 2:");
+  const opcion3 = prompt("Introduce la opción 3:");
+  const respuestaCorrecta = prompt("Introduce la respuesta correcta:");
+
+  // Crear una nueva pregunta
+  const nuevaPregunta = {
+    pregunta: preguntaTexto,
+    opciones: [opcion1, opcion2, opcion3],
+    respuestaCorrecta: respuestaCorrecta
+  };
+
+  // Agregarla al arreglo de preguntas
+  preguntas.push(nuevaPregunta);
+  console.log("¡Pregunta añadida con éxito!");
+}
+
+// Paso 6: Preguntar si el usuario quiere agregar una nueva pregunta
+const deseaAgregarPregunta = prompt("¿Quieres agregar una nueva pregunta al cuestionario? (si/no)");
+
+if (deseaAgregarPregunta.toLowerCase() === "si") {
+  agregarPregunta();
+}
   
-  // Paso 5: Utilizar la función preguntar para cada pregunta
+  // Paso 7: Utilizar la función preguntar para cada pregunta
   preguntas.forEach((pregunta) => {
     preguntar(pregunta);
   });
