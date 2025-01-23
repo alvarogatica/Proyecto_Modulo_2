@@ -68,13 +68,18 @@ const preguntas = [
   }
   
   // Paso 4: Crear la función preguntar
+  let respuestasCorrectas = 0;
+  let respuestasIncorrectas = 0;
+
   function preguntar(pregunta) {
     console.log(pregunta.pregunta);
     const respuestaUsuario = recibirRespuestaUsuario(pregunta); 
     if (esRespCorrecta(pregunta, respuestaUsuario)) {
       console.log("¡Correcto!");
+      respuestasCorrectas++;
     } else {
       console.log("Incorrecto. La respuesta correcta es " + pregunta.respuestaCorrecta);
+      respuestasIncorrectas++;
     }
   }
   // Paso 5: Crear un método para agregar nuevas preguntas
@@ -108,4 +113,8 @@ if (deseaAgregarPregunta.toLowerCase() === "si") {
   preguntas.forEach((pregunta) => {
     preguntar(pregunta);
   });
+
+  // Paso 8: Mostrar el resultado final
+  console.log(`Respuestas correctas: ${respuestasCorrectas}`);
+  console.log(`Respuestas incorrectas: ${respuestasIncorrectas}`);
   

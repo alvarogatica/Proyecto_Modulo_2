@@ -17,6 +17,8 @@ class Pregunta {
   class Cuestionario {
     constructor(preguntas) {
       this.preguntas = preguntas;
+      this.respuestasCorrectas = 0;
+      this.respuestasIncorrectas = 0;
     }
   
     //creamos el metodo hacerPreguntas para recorrer las preguntas y validar las respuestas
@@ -35,10 +37,16 @@ class Pregunta {
   
         if (pregunta.esRespCorrecta(respCorrecta)) {
           console.log("¡Correcto!");
+          this.respuestasCorrectas++;
         } else {
           console.log(`Incorrecto. La respuesta correcta es ${pregunta.respCorrecta}`);
+          this.respuestasIncorrectas++;
         }
       });
+
+      // Mostrar el resultado final
+      console.log(`Respuestas correctas: ${this.respuestasCorrectas}`);
+      console.log(`Respuestas incorrectas: ${this.respuestasIncorrectas}`);
     }
     // Método para permitir al usuario agregar una nueva pregunta al cuestionario
   agregarPregunta() {
