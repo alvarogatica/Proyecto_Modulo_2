@@ -94,15 +94,19 @@ function esRespCorrecta(pregunta, respuesta) {
   }
 ```
 
-### 5. La función ```preguntar``` se encarga de realizar una pregunta al usuario, verificar si su respuesta es correcta y mostrar un mensaje indicando el resultado.
+### 5. La función ```preguntar``` se encarga de realizar una pregunta al usuario, verificar si su respuesta es correcta y mostrar un mensaje indicando el resultado. Tambien se inician dos contadores que almacenan la cantidad de respuestas correctas e incorrectas para mostrarlas como resultados de la encuesta al final de la ejecucion
 ```javascript
+  let respuestasCorrectas = 0;
+  let respuestasIncorrectas = 0;
  function preguntar(pregunta) {
     console.log(pregunta.pregunta);
     const respuestaUsuario = recibirRespuestaUsuario(pregunta); 
     if (esRespCorrecta(pregunta, respuestaUsuario)) {
       console.log("¡Correcto!");
+    respuestasCorrectas++;
     } else {
       console.log("Incorrecto. La respuesta correcta es " + pregunta.respuestaCorrecta);
+    respuestasIncorrectas++;
     }
   }
 ```
@@ -146,6 +150,11 @@ if (deseaAgregarPregunta.toLowerCase() === "si") {
  preguntas.forEach((pregunta) => {
     preguntar(pregunta);
   });
+```
+### 9. Se muestran los resultados de la encuesta en consola.
+```javascript
+  console.log(`Respuestas correctas: ${respuestasCorrectas}`);
+  console.log(`Respuestas incorrectas: ${respuestasIncorrectas}`);
 ```
 
 ### EL codigo completo de la solucion PF aqui abajo:
@@ -220,13 +229,18 @@ const preguntas = [
   }
   
   // Paso 4: Crear la función preguntar
-  function preguntar(pregunta) {
+  let respuestasCorrectas = 0;
+  let respuestasIncorrectas = 0;
+
+ function preguntar(pregunta) {
     console.log(pregunta.pregunta);
     const respuestaUsuario = recibirRespuestaUsuario(pregunta); 
     if (esRespCorrecta(pregunta, respuestaUsuario)) {
       console.log("¡Correcto!");
+      respuestasCorrectas++;
     } else {
       console.log("Incorrecto. La respuesta correcta es " + pregunta.respuestaCorrecta);
+      respuestasIncorrectas++;
     }
   }
   // Paso 5: Crear un método para agregar nuevas preguntas
@@ -260,6 +274,10 @@ if (deseaAgregarPregunta.toLowerCase() === "si") {
   preguntas.forEach((pregunta) => {
     preguntar(pregunta);
   });
+
+// Paso 8: Mostrar el resultado final
+  console.log(`Respuestas correctas: ${respuestasCorrectas}`);
+  console.log(`Respuestas incorrectas: ${respuestasIncorrectas}`);
 ```
 
 ## SOLUCION EXPLICADA PASO A PASO (POO)
@@ -297,6 +315,8 @@ class Pregunta {
 class Cuestionario {
     constructor(preguntas) {
       this.preguntas = preguntas;
+      this.respuestasCorrectas = 0;
+      this.respuestasIncorrectas = 0;
     }
 ```
 
@@ -324,10 +344,15 @@ Si la respuesta es correcta, muestra "¡Correcto!" en la consola, y si no lo es,
   
         if (pregunta.esRespCorrecta(respCorrecta)) {
           console.log("¡Correcto!");
+          this.respuestasCorrectas++;
         } else {
           console.log(`Incorrecto. La respuesta correcta es ${pregunta.respCorrecta}`);
+          this.respuestasIncorrectas++;
         }
       });
+         // Mostrar el resultado final
+      console.log(`Respuestas correctas: ${this.respuestasCorrectas}`);
+      console.log(`Respuestas incorrectas: ${this.respuestasIncorrectas}`);
     }
 ```
 ### 5. El método ```agregarPregunta()``` permite al usuario agregar una nueva pregunta al cuestionario
@@ -404,6 +429,8 @@ class Pregunta {
   class Cuestionario {
     constructor(preguntas) {
       this.preguntas = preguntas;
+      this.respuestasCorrectas = 0;
+      this.respuestasIncorrectas = 0;
     }
   
     //creamos el metodo hacerPreguntas para recorrer las preguntas y validar las respuestas
@@ -422,10 +449,16 @@ class Pregunta {
   
         if (pregunta.esRespCorrecta(respCorrecta)) {
           console.log("¡Correcto!");
+          this.respuestasCorrectas++;
         } else {
           console.log(`Incorrecto. La respuesta correcta es ${pregunta.respCorrecta}`);
+          this.respuestasIncorrectas++;
         }
       });
+
+      // Mostrar el resultado final
+      console.log(`Respuestas correctas: ${this.respuestasCorrectas}`);
+      console.log(`Respuestas incorrectas: ${this.respuestasIncorrectas}`);
     }
     // Método para permitir al usuario agregar una nueva pregunta al cuestionario
   agregarPregunta() {
